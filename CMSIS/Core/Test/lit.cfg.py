@@ -346,7 +346,6 @@ DEVICES = {
             '__VTOR_PRESENT': '1U',
             '__PMU_PRESENT': '1U',
             '__PMU_NUM_EVENTCNT': '8U',
-            '__DSP_PRESENT': '1U',
             '__NVIC_PRIO_BITS': '3U',
             '__Vendor_SysTickConfig': '0U'
         }
@@ -372,7 +371,6 @@ DEVICES = {
             '__VTOR_PRESENT': '1U',
             '__PMU_PRESENT': '1U',
             '__PMU_NUM_EVENTCNT': '8U',
-            '__DSP_PRESENT': '1U',
             '__NVIC_PRIO_BITS': '3U',
             '__Vendor_SysTickConfig': '0U'
         }
@@ -398,7 +396,6 @@ DEVICES = {
             '__VTOR_PRESENT': '1U',
             '__PMU_PRESENT': '1U',
             '__PMU_NUM_EVENTCNT': '8U',
-            '__DSP_PRESENT': '1U',
             '__NVIC_PRIO_BITS': '3U',
             '__Vendor_SysTickConfig': '0U'
         }
@@ -424,7 +421,6 @@ DEVICES = {
             '__VTOR_PRESENT': '1U',
             '__PMU_PRESENT': '1U',
             '__PMU_NUM_EVENTCNT': '8U',
-            '__DSP_PRESENT': '1U',
             '__NVIC_PRIO_BITS': '3U',
             '__Vendor_SysTickConfig': '0U'
         }
@@ -450,7 +446,6 @@ DEVICES = {
             '__VTOR_PRESENT': '1U',
             '__PMU_PRESENT': '1U',
             '__PMU_NUM_EVENTCNT': '8U',
-            '__DSP_PRESENT': '1U',
             '__NVIC_PRIO_BITS': '3U',
             '__Vendor_SysTickConfig': '0U'
         }
@@ -476,7 +471,6 @@ DEVICES = {
             '__VTOR_PRESENT': '1U',
             '__PMU_PRESENT': '1U',
             '__PMU_NUM_EVENTCNT': '8U',
-            '__DSP_PRESENT': '1U',
             '__NVIC_PRIO_BITS': '3U',
             '__Vendor_SysTickConfig': '0U'
         }
@@ -681,7 +675,7 @@ class Toolchain_AC6(Toolchain):
     def get_ccflags(self):
         ccflags = [
             '--target=arm-arm-none-eabi', f'-mcpu={DEVICES[self.device]["mcpu"]}', f'-mfpu={DEVICES[self.device]["mfpu"]}', 
-            self.OPTIMIZE[self.optimize], '-I', os.path.abspath('../Include'), '-c', '-D', f'CORE_HEADER=\\"{DEVICES[device]["header"]}\\"']
+            self.OPTIMIZE[self.optimize], '-I', os.path.abspath('../Include'), '-c', '-D', f'CORE_HEADER="{DEVICES[device]["header"]}"']
         if device.endswith('S') and not device.endswith('NS'):
             ccflags += ["-mcmse"]
         ccflags += list(sum([('-D', f'{define}={value}') for (define, value) in DEVICES[self.device]['defines'].items()], ()))
@@ -709,7 +703,7 @@ class Toolchain_GCC(Toolchain):
         ccflags = [
             f'-mcpu={DEVICES[self.device]["mcpu"]}', f'-mfloat-abi={floatabi}', 
             self.OPTIMIZE[self.optimize], '-I', os.path.abspath('../Include'), 
-            '-D', f'CORE_HEADER=\\"{DEVICES[device]["header"]}\\"', '-c']
+            '-D', f'CORE_HEADER="{DEVICES[device]["header"]}"', '-c']
         if DEVICES[self.device]["mfpu"] != "none":
             ccflags += [f'-mfpu={DEVICES[self.device]["mfpu"]}']
         if device.endswith('S') and not device.endswith('NS'):
@@ -765,7 +759,7 @@ class Toolchain_Clang(Toolchain):
         ccflags = [
             f'--target={self.TARGET[self.device]}', self.OPTIMIZE[self.optimize], 
             f'-mcpu={DEVICES[self.device]["mcpu"]}', f'-mfpu={DEVICES[self.device]["mfpu"]}', 
-            '-I', os.path.abspath('../Include'), '-c', '-D', f'CORE_HEADER=\\"{DEVICES[device]["header"]}\\"']
+            '-I', os.path.abspath('../Include'), '-c', '-D', f'CORE_HEADER="{DEVICES[device]["header"]}"']
         if device.endswith('S') and not device.endswith('NS'):
             ccflags += ["-mcmse"]
         ccflags += list(sum([('-D', f'{define}={value}') for (define, value) in DEVICES[self.device]['defines'].items()], ()))
